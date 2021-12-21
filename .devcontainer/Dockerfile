@@ -27,10 +27,27 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
 
-RUN pip install -U pre-commit
-
 # Install AWS CLI
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64-2.2.37.zip" -o "awscliv2.zip" && \
     unzip awscliv2.zip && \
     ./aws/install
 
+RUN echo alias ls=\'ls -l -a -G --color=auto\' >> /home/vscode/.bashrc
+
+ARG USERNAME=vscode
+
+RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.bash_history" \
+    && mkdir /commandhistory \
+    && touch /commandhistory/.bash_history \
+    && chown -R $USERNAME /commandhistory \
+    && echo $SNIPPET >> "/home/$USERNAME/.bashrc"
+
+RUN mkdir -p /home/$USERNAME/.vscode-server/extensions \
+        /home/$USERNAME/.vscode-server-insiders/extensions \
+        /home/$USERNAME/.cache \
+        /home/$USERNAME/.local \
+    && chown -R $USERNAME \
+        /home/$USERNAME/.vscode-server \
+        /home/$USERNAME/.vscode-server-insiders \
+        /home/$USERNAME/.cache \
+        /home/$USERNAME/.local
