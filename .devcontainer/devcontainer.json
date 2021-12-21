@@ -5,12 +5,12 @@
         "context": "..",
         "args": {
             "VARIANT": "3.10-bullseye",
-            "NODE_VERSION": "16"
+            "NODE_VERSION": "16.13.1"
         }
     },
     "mounts": [
         "source=${localEnv:HOME}/.aws,target=/home/vscode/.aws,type=bind",
-        "source=projectname-bashhistory,target=/commandhistory,type=volume",
+        "source=commandhistory,target=/commandhistory,type=volume",
         "source=extensions,target=/home/vscode/.vscode-server/extensions,type=volume",
         "source=pipcache,target=/home/vscode/.cache,type=volume",
         "source=local,target=/home/vscode/.local,type=volume"

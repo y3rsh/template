@@ -43,11 +43,13 @@ RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhisto
     && echo $SNIPPET >> "/home/$USERNAME/.bashrc"
 
 RUN mkdir -p /home/$USERNAME/.vscode-server/extensions \
-        /home/$USERNAME/.vscode-server-insiders/extensions \
         /home/$USERNAME/.cache \
         /home/$USERNAME/.local \
+        /home/$USERNAME/.aws \
+        /home/$USERNAME/commandhistory \
     && chown -R $USERNAME \
         /home/$USERNAME/.vscode-server \
-        /home/$USERNAME/.vscode-server-insiders \
         /home/$USERNAME/.cache \
-        /home/$USERNAME/.local
+        /home/$USERNAME/.local \
+        /home/$USERNAME/.aws \
+        /home/$USERNAME/commandhistory
